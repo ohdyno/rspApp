@@ -6,9 +6,9 @@
     "src/"
   ],
   "devDependencies": {
-    "jest": "latest"
+    "jasmine": "latest"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jasmine"
   }
 }

@@ -1,19 +1,4 @@
-class Requests {
-    play(p1, p2, ui) {
-        if (p1 === p2) {
-            ui.tie();
-            return
-        }
-
-        if (p1 === 'scissors' && p2 === 'paper' ||
-            p1 === 'rock' && p2 === 'scissors' ||
-            p1 === 'paper' && p2 === 'rock') {
-            ui.p1Wins();
-            return
-        }
-        ui.p2Wins()
-    }
-}
+const Requests = require('../rps');
 
 describe('play', () => {
     const requests = new Requests();
@@ -23,8 +8,8 @@ describe('play', () => {
         describe('showing p1 wins', () => {
             beforeEach(() => {
                 uiSpy = {
-                    p1Wins: jest.fn()
-                };
+                    p1Wins: jasmine.createSpy('p1WinsSpy')
+                }
             });
 
             it('should show with rock v scissors', () => {
@@ -46,8 +31,8 @@ describe('play', () => {
         describe('showing p2 wins', () => {
             beforeEach(() => {
                 uiSpy = {
-                    p2Wins: jest.fn()
-                };
+                    p2Wins: jasmine.createSpy('p2WinsSpy')
+                }
             });
 
             it('should show with scissors v rock', function () {
@@ -69,8 +54,8 @@ describe('play', () => {
         describe('showing tie', () => {
             beforeEach(() => {
                 uiSpy = {
-                    tie: jest.fn()
-                };
+                    tie: jasmine.createSpy('tieSpy')
+                }
             });
 
             it('should show with scissors v scissors', function () {
