@@ -6,7 +6,7 @@ class RPSApp extends React.Component {
 
         this.state = {
             useCases: props.useCases,
-            result: 'INVALID',
+            result: '',
             p1Throw: '',
             p2Throw: ''
         };
@@ -30,7 +30,9 @@ class RPSApp extends React.Component {
     }
 
     invalid() {
-
+        this.setState(() => ({
+            result: 'INVALID'
+        }));
     }
 
     tie() {

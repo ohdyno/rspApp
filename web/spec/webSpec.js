@@ -8,6 +8,20 @@ describe("play form", function () {
         tearDown()
     });
 
+    describe("before making any plays", function () {
+        it("should not show invalid, p1 wins, or p2 wins status", function () {
+            renderApp({
+                play: function () {}
+            });
+
+            play();
+
+            expect(pageContent()).not.toContain("INVALID");
+            expect(pageContent()).not.toContain("P1 Wins");
+            expect(pageContent()).not.toContain("P2 Wins")
+        });
+    });
+
     describe("when the play use case tells the UI that the input is invalid", function () {
 
         it('tells the user that their input is invalid', function () {
