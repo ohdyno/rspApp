@@ -1,18 +1,26 @@
-class Requests {
+const Round = require('./round');
+
+class RPS {
+    constructor(repo) {
+        this.repo = repo;
+    }
+
     play(p1, p2, ui) {
+        let result;
         if (this.invalid(p1, p2)) {
             ui.invalid();
-            return
-        }
-        if (this.tie(p1, p2)) {
+            result = 'invalid'
+        } else if (this.tie(p1, p2)) {
             ui.tie();
-            return
-        }
-        if (this.p1Wins(p1, p2)) {
+            result = 'tie'
+        } else if (this.p1Wins(p1, p2)) {
             ui.p1Wins();
-            return
+            result = 'p1Wins'
+        } else {
+            ui.p2Wins();
+            result = 'p2Wins'
         }
-        ui.p2Wins()
+        this.repo.save(new Round(p1, p2, result))
     }
 
     p1Wins(p1, p2) {
@@ -32,6 +40,15 @@ class Requests {
     throwIsInvalid(play) {
         return play !== 'scissors' && play !== 'paper' && play !== 'rock';
     }
+
+    getHistory(ui) {
+        let rounds = this.repo.getAllRounds();
+        if (rounds.length === 0) {
+            ui.noRounds()
+        } else {
+            ui.roundsPlayed(rounds)
+        }
+    }
 }
 
-module.exports = Requests;
+module.exports = RPS;

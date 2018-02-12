@@ -1,8 +1,13 @@
-const Requests = require('../rps');
+const RPS = require('../rps');
+const FakeRepo = require('./fakeRepo');
 
 describe('play', function () {
-    const requests = new Requests();
+    let rps;
     let uiSpy;
+
+    beforeEach(function () {
+        rps = new RPS(new FakeRepo());
+    });
 
     describe('with valid inputs', function () {
         describe('showing p1 wins', function () {
@@ -13,17 +18,17 @@ describe('play', function () {
             });
 
             it('should show with rock v scissors', function () {
-                requests.play('rock', 'scissors', uiSpy);
+                rps.play('rock', 'scissors', uiSpy);
                 expect(uiSpy.p1Wins).toHaveBeenCalled()
             });
 
             it('should show with paper v rock', function () {
-                requests.play('paper', 'rock', uiSpy);
+                rps.play('paper', 'rock', uiSpy);
                 expect(uiSpy.p1Wins).toHaveBeenCalled()
             });
 
             it('should show with scissors v paper', function () {
-                requests.play('scissors', 'paper', uiSpy);
+                rps.play('scissors', 'paper', uiSpy);
                 expect(uiSpy.p1Wins).toHaveBeenCalled()
             });
         });
@@ -36,17 +41,17 @@ describe('play', function () {
             });
 
             it('should show with scissors v rock', function () {
-                requests.play('scissors', 'rock', uiSpy);
+                rps.play('scissors', 'rock', uiSpy);
                 expect(uiSpy.p2Wins).toHaveBeenCalled()
             });
 
             it('should show with paper v scissors', function () {
-                requests.play('paper', 'scissors', uiSpy);
+                rps.play('paper', 'scissors', uiSpy);
                 expect(uiSpy.p2Wins).toHaveBeenCalled()
             });
 
             it('should show with rock v paper', function () {
-                requests.play('rock', 'paper', uiSpy);
+                rps.play('rock', 'paper', uiSpy);
                 expect(uiSpy.p2Wins).toHaveBeenCalled()
             });
         });
@@ -59,15 +64,15 @@ describe('play', function () {
             });
 
             it('should show with scissors v scissors', function () {
-                requests.play('scissors', 'scissors', uiSpy);
+                rps.play('scissors', 'scissors', uiSpy);
                 expect(uiSpy.tie).toHaveBeenCalled()
             });
             it('should show with rock v rock', function () {
-                requests.play('rock', 'rock', uiSpy);
+                rps.play('rock', 'rock', uiSpy);
                 expect(uiSpy.tie).toHaveBeenCalled()
             });
             it('should show with paper v paper', function () {
-                requests.play('paper', 'paper', uiSpy);
+                rps.play('paper', 'paper', uiSpy);
                 expect(uiSpy.tie).toHaveBeenCalled()
             });
         })
@@ -82,7 +87,7 @@ describe('play', function () {
 
         describe("when player 1 gives invalid input", function () {
             beforeEach(function () {
-                requests.play('sailboat', 'scissors', uiSpy);
+                rps.play('sailboat', 'scissors', uiSpy);
             });
 
             it('should notify the ui that the result is invalid', function () {
@@ -92,7 +97,7 @@ describe('play', function () {
 
         describe("when player 2 gives invalid input", function () {
             beforeEach(function () {
-                requests.play('scissors', 'sailboat', uiSpy);
+                rps.play('scissors', 'sailboat', uiSpy);
             });
 
             it('should notify the ui that the result is invalid', function () {
